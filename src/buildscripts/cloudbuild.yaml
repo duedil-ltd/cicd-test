@@ -1,12 +1,8 @@
 steps:
   - name: 'openjdk:10-jre-slim'
     entrypoint: 'bash'
-    args: ['-c', './gradlew clean test']
+    args: ['-c', './gradlew clean test && ./gradlew clean build']
     id: 'cicd-test-test'
-  - name: 'openjdk:10-jre-slim'
-    entrypoint: 'bash'
-    args: ['-c', './gradlew clean build']
-    id: 'cicd-test-build'
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
     args: ['-c', "sh src/buildscripts/cloudbuild-docker-build-push.sh $BRANCH_NAME $SHORT_SHA "
