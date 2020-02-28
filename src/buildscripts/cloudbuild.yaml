@@ -1,9 +1,9 @@
 steps:
-  - name: 'gcr.io/cloud-builders/gradle'
+  - name: 'openjdk:10-jre-slim'
     entrypoint: 'bash'
     args: ['-c', './gradlew clean test']
     id: 'cicd-test-test'
-  - name: 'gcr.io/cloud-builders/gradle'
+  - name: 'openjdk:10-jre-slim'
     entrypoint: 'bash'
     args: ['-c', './gradlew clean build']
     id: 'cicd-test-build'
