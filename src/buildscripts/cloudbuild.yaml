@@ -9,7 +9,7 @@ steps:
     id: 'cicd-test-build'
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
-    args: ['-c', "sh src/buildscripts/docker-build-push.sh $BRANCH_NAME $SHORT_SHA "
+    args: ['-c', "sh src/buildscripts/cloudbuild-docker-build-push.sh $BRANCH_NAME $SHORT_SHA "
     ]
     id: 'cicd-test-docker'
 
