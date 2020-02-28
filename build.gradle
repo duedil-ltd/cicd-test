@@ -25,17 +25,17 @@ ext {
 }
 
 application {
-  mainClassName = 'io.vertx.core.Launcher'
+  mainClassName = 'com.duedil.cicd_test.Main'
 }
 
-
-def mainVerticleName = 'com.duedil.cicd_test.MainVerticle'
 def watchForChange = 'src/**/*'
 def doOnChange = './gradlew classes'
 
 dependencies {
   implementation "io.vertx:vertx-web:$vertxVersion"
   implementation "io.vertx:vertx-lang-kotlin:$vertxVersion"
+  implementation "io.vertx:vertx-health-check:$vertxVersion"
+  implementation "io.vertx:vertx-dropwizard-metrics:$vertxVersion"
 
   testImplementation "io.vertx:vertx-junit5:$vertxVersion"
   testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterEngineVersion"
@@ -54,7 +54,7 @@ compileTestKotlin {
 shadowJar {
   classifier = 'fat'
   manifest {
-    attributes 'Main-Verticle': mainVerticleName
+    attributes 'Main-Class': mainClassName
   }
   mergeServiceFiles {
     include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
@@ -69,5 +69,5 @@ test {
 }
 
 run {
-  args = ['run', mainVerticleName, "--redeploy=$watchForChange", "--launcher-class=$mainClassName", "--on-redeploy=$doOnChange"]
+  args = ['run', "--redeploy=$watchForChange", "--launcher-class=$mainClassName", "--on-redeploy=$doOnChange"]
 }
