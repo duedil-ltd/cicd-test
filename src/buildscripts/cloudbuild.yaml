@@ -1,0 +1,14 @@
+steps:
+  - name: 'test'
+    entrypoint: 'bash'
+    args: ['-c', './gradlew clean test']
+    id: 'cicd-test-test'
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', './gradlew clean build']
+    id: 'cicd-test-build'
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker build . -f src/buildscripts/Dockerfile -t gcr.io/sandpit-environment/github.com/duedil-ltd/cicd-test:$SHORT_SHA']
+    id: 'cicd-test-docker'
+

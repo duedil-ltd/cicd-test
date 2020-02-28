@@ -1,7 +1,7 @@
 ###
 # vert.x docker example using a Java verticle packaged as a fatjar
 # To build:
-#  docker build -t test/cicd-test .
+#  docker build -f src/buildscripts/Dockerfile -t test/cicd-test .
 # To run:
 #   docker run -t -i -p 8080:8080 test/cicd-test
 ###
