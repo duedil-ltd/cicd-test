@@ -8,7 +8,7 @@
 
 FROM openjdk:10-jre-slim
 
-ENV VERTICLE_FILE cicd-test-1.0.0-SNAPSHOT-fat.jar
+ENV VERTICLE_FILE cicd-test-fat.jar
 
 # Set the location of the verticles
 ENV VERTICLE_HOME /usr/verticles
