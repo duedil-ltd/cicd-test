@@ -1,9 +1,9 @@
 steps:
-  - name: 'test'
+  - name: 'ubuntu'
     entrypoint: 'bash'
     args: ['-c', './gradlew clean test']
     id: 'cicd-test-test'
-  - name: 'build'
+  - name: 'ubuntu'
     entrypoint: 'bash'
     args: ['-c', './gradlew clean build']
     id: 'cicd-test-build'
