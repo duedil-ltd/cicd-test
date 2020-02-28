@@ -9,11 +9,9 @@ steps:
     id: 'cicd-test-build'
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
-    args: ['-c', "if['$BRANCH_NAME' = 'master'] \
-      docker build . -f src/buildscripts/Dockerfile -t gcr.io/sandpit-environment/github.com/duedil-ltd/cicd-test:$SHORT_SHA && docker push \
-    else \
-      echo 'Not on master, skiping Docker step' \
-    fi"
+    args: ['-c', "sh src/buildscripts/docker-build-push.sh $BRANCH_NAME $SHORT_SHA "
     ]
     id: 'cicd-test-docker'
 
+options:
+  machineType: 'N1_HIGHCPU_8'
