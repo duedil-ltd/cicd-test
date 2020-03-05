@@ -2,7 +2,6 @@ steps:
 
 # test and build artifact
   - name: 'openjdk:10-jre-slim'
-    id: 'cicd-test-test'
     entrypoint: 'bash'
     args:
     - '-c'
@@ -11,7 +10,6 @@ steps:
 
 # build docker image
   - name: 'gcr.io/cloud-builders/docker'
-    id: 'cicd-test-docker'
     entrypoint: 'bash'
     args:
     - '-c'
