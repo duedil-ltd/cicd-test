@@ -6,7 +6,7 @@ steps:
     entrypoint: 'bash'
     args:
     - '-c'
-    - ./gradlew clean test && ./gradlew clean build
+    - './gradlew clean test && ./gradlew clean build'
 
 # build docker image
   - name: 'gcr.io/cloud-builders/docker'
