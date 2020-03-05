@@ -14,7 +14,7 @@ steps:
     entrypoint: 'bash'
     args:
       - '-c'
-      - './cloudbuild-spin-docker-build-push.sh $BRANCH_NAME $SHORT_SHA '
+      - 'sh cloudbuild-spin-docker-build-push.sh $BRANCH_NAME $SHORT_SHA '
 
 options:
   machineType: 'N1_HIGHCPU_8'
