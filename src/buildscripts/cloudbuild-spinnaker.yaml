@@ -1,0 +1,26 @@
+steps:
+
+# test and build artifact
+  - name: 'openjdk:10-jre-slim'
+    id: 'cicd-test-test'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - ./gradlew clean test && \
+      ./gradlew clean build
+
+# build docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'cicd-test-docker'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      if [ $BRANCH_NAME = 'spinnaker' ]; then \
+        docker build . -f src/buildscripts/Dockerfile -t gcr.io/sandpit-environment/github.com/duedil-ltd/cicd-test-spin:$SHORT_SHA \
+        docker push gcr.io/sandpit-environment/github.com/duedil-ltd/cicd-test-spin:$SHORT_SHA \
+      else \
+        echo 'Not on spinnaker, skipping Docker step' \
+      fi
+options:
+  machineType: 'N1_HIGHCPU_8'

@@ -1,13 +1,36 @@
 steps:
+
+# test and build artifact
   - name: 'openjdk:10-jre-slim'
-    entrypoint: 'bash'
-    args: ['-c', './gradlew clean test && ./gradlew clean build']
     id: 'cicd-test-test'
-  - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
-    args: ['-c', "sh src/buildscripts/cloudbuild-docker-build-push.sh $BRANCH_NAME $SHORT_SHA "
-    ]
+    args:
+    - '-c'
+    - ./gradlew clean test && \
+      ./gradlew clean build
+
+# build docker image
+  - name: 'gcr.io/cloud-builders/docker'
     id: 'cicd-test-docker'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      if [ $BRANCH_NAME = 'feat-fix-docker-pull' ]; then \
+        docker build . -f src/buildscripts/Dockerfile -t gcr.io/sandpit-environment/github.com/duedil-ltd/cicd-test:$SHORT_SHA \
+        docker push gcr.io/sandpit-environment/github.com/duedil-ltd/cicd-test:$SHORT_SHA \
+      else \
+        echo 'Not on master, skipping Docker step' \
+      fi
+
+# deploy container image to GKE
+  - name: "gcr.io/cloud-builders/gke-deploy"
+    args:
+      - run
+      - --filename=[KUBERNETES_CONFIG_FILE]
+      - --image=gcr.io/[PROJECT_ID]/[IMAGE]:[TAG]
+      - --location=${_CLOUDSDK_COMPUTE_ZONE}
+      - --cluster=${_CLOUDSDK_CONTAINER_CLUSTER}
 
 options:
   machineType: 'N1_HIGHCPU_8'
