@@ -13,14 +13,14 @@ steps:
     id: 'cicd-test-docker'
     entrypoint: 'bash'
     args:
-    - '-c'
-    - |
-      if [ $BRANCH_NAME = 'spinnaker' ]; then \
-        docker build . -f src/buildscripts/Dockerfile -t gcr.io/sandpit-environment/github.com/duedil-ltd/cicd-test-spin:$SHORT_SHA \
-        docker push gcr.io/sandpit-environment/github.com/duedil-ltd/cicd-test-spin:$SHORT_SHA \
-      else \
-        echo 'Not on spinnaker, skipping Docker step' \
-      fi
+      - '-c'
+      - |
+        if [ $BRANCH_NAME = 'spinnaker' ]; then \
+          docker build . -f src/buildscripts/Dockerfile -t gcr.io/sandpit-environment/github.com/duedil-ltd/cicd-test-spin:$SHORT_SHA \
+          docker push gcr.io/sandpit-environment/github.com/duedil-ltd/cicd-test-spin:$SHORT_SHA \
+        else \
+          echo 'Not on spinnaker, skipping Docker step' \
+        fi
 
 options:
   machineType: 'N1_HIGHCPU_8'
