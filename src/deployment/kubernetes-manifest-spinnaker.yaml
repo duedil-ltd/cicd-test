@@ -2,13 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cicd-test-spinnaker-deployment
-    labels:
-      app: cicd-test-spinnaker
+  labels:
+    app: cicd-test-spinnaker
 spec:
   replicas: 1
-  strategy: Recreate
   selector:
-    matchLabels: cicd-test-spinnaker
+    matchLabels:
+      app: cicd-test-spinnaker
   template:
     metadata:
       labels:
