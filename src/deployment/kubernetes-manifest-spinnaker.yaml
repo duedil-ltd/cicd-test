@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: cicd-test-spinnaker
-          image: gcr.io/sandpit-environment/github.com/duedil-ltd/cicd-test-spin
+          image: eu.gcr.io/docker-registry/cicd-test-spin
           ports:
             - containerPort: 8080
