@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cicd-test-spinnaker-deployment
   labels:
     app: cicd-test-spinnaker
+  name: cicd-test-spinnaker-deployment
 spec:
   replicas: 1
   selector:
@@ -15,7 +15,15 @@ spec:
         app: cicd-test-spinnaker
     spec:
       containers:
-        - name: cicd-test-spinnaker
-          image: eu.gcr.io/docker-registry/cicd-test-spin
+        - image: eu.gcr.io/duedil-registry/cicd-test-spin
+          name: cicd-test-spinnaker
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
