@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cicd-test-spinnaker-deployment
+    labels:
+      app: cicd-test-spinnaker
+spec:
+  replicas: 1
+  strategy: Recreate
+  selector:
+    matchLabels: cicd-test-spinnaker
+  template:
+    metadata:
+      labels:
+        app: cicd-test-spinnaker
+    spec:
+      containers:
+        - name: cicd-test-spinnaker
+          image: gcr.io/sandpit-environment/github.com/duedil-ltd/cicd-test-spin
+          ports:
+            - containerPort: 8080
