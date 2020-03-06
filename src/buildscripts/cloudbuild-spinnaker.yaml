@@ -16,5 +16,7 @@ steps:
       - '-c'
       - 'sh src/buildscripts/cloudbuild-spin-docker-build-push.sh $BRANCH_NAME $SHORT_SHA '
 
+images: ['eu.gcr.io/docker-registry/cicd-test-spin:$SHORT_SHA']
+
 options:
   machineType: 'N1_HIGHCPU_8'
