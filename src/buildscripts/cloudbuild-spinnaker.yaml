@@ -20,4 +20,3 @@ images: ['eu.gcr.io/duedil-registry/cicd-test-spin:$SHORT_SHA']
 
 options:
   machineType: 'N1_HIGHCPU_8'
-
