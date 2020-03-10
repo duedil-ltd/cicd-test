@@ -8,6 +8,6 @@ internal class DummyServiceTest {
 
     @Test
     fun dummyAction() {
-      assertEquals("fail dummy response", DummyService().dummyAction())
+      assertEquals("dummy response", DummyService().dummyAction())
     }
 }
