@@ -17,6 +17,9 @@ spec:
       containers:
         - image: eu.gcr.io/duedil-registry/cicd-test-spin
           name: cicd-test-spinnaker
+          env:
+            - name: STAGE
+              value:
           ports:
             - containerPort: 8080
           livenessProbe:
