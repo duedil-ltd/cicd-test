@@ -31,4 +31,3 @@ spec:
             httpGet:
               path: /healthcheck
               port: 8080
-
