@@ -12,9 +12,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     id: 'cicd-test-docker'
     entrypoint: 'bash'
-    args:
-      - '-c'
-      - 'sh src/buildscripts/cloudbuild-spin-docker-build-push.sh $BRANCH_NAME $SHORT_SHA '
+    args: ['-c', 'docker build . -f src/buildscripts/Dockerfile -t eu.gcr.io/duedil-registry/cicd-test-spin:$SHORT_SHA']
 
 images: ['eu.gcr.io/duedil-registry/cicd-test-spin:$SHORT_SHA']
 
