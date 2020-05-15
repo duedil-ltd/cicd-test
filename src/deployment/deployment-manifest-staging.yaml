@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cicd-test-spinnaker
+  name: cicd-test-spinnaker-deployment
+  namespace: spinnaker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cicd-test-spinnaker
+  template:
+    metadata:
+      labels:
+        app: cicd-test-spinnaker
+    spec:
+      containers:
+        - env:
+            - name: STAGE
+              value: staging
+          image: eu.gcr.io/duedil-registry/cicd-test-spin
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+          name: cicd-test-spinnaker
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+

@@ -40,7 +40,7 @@ class Main {
       router.route("/dummy").handler { req ->
         req.response()
           .putHeader("content-type", "text/plain")
-          .end(DummyService().dummyAction())
+          .end(DummyService().dummyAction() + " from the ***" + System.getenv("STAGE") + "*** environment")
       }
 
       vertx.createHttpServer(httpServerOptions).requestHandler(router).listen(8080)

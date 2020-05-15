@@ -1,0 +1,21 @@
+steps:
+
+# test and build artifact
+  - name: 'openjdk:10-jre-slim'
+    id: 'cicd-test-test'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - './gradlew clean test && ./gradlew clean build'
+
+# build docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'cicd-test-docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker build . -f src/buildscripts/Dockerfile -t eu.gcr.io/duedil-registry/cicd-test-spin:$SHORT_SHA']
+
+images: ['eu.gcr.io/duedil-registry/cicd-test-spin:$SHORT_SHA']
+
+options:
+  machineType: 'N1_HIGHCPU_8'
+
